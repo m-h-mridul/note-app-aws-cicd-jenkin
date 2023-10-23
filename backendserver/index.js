@@ -8,6 +8,8 @@ require("dotenv").config();
 //middlewire
 app.use(cors());
 app.use(express.json());
+
+
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.pdjev.mongodb.net/?retryWrites=true&w=majority`;
 
@@ -19,7 +21,7 @@ const client = new MongoClient(uri, {
 console.log(uri);
 const fun = async () => {
   try {
-    //await client.connect();
+    await client.connect();
 
     const noteCollection = client.db("note_db").collection("note");
     //console.log(noteCollection)
@@ -78,3 +80,5 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
   console.log("Z, SERVER IS RUNNING");
 });
+
+

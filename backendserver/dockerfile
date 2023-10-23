@@ -1,0 +1,21 @@
+# Use an official Node.js runtime as a parent image
+FROM node:18.17-slim
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the package.json and package-lock.json into the container
+COPY package*.json ./
+COPY package-lock.json ./
+
+# Install app dependencies
+RUN npm install
+
+# Copy your Express application source code into the container
+COPY . .
+
+# Expose port 3000 (the port your Express app is listening on)
+EXPOSE 3000
+
+# Define the command to start your Express application
+CMD ["node", "index.js"]
