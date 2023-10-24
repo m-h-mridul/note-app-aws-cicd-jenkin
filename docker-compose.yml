@@ -1,0 +1,28 @@
+version: '3.9'
+services:
+  my-react-app:
+    build:
+      context: ./my-react-app
+      dockerfile: dockerfile
+    container_name: frontend
+    ports:
+      - "8000:8000"
+    networks:
+      - app-network
+    depends_on:
+      - backendserver
+  backendserver:
+    build:
+      context: ./backendserver
+      dockerfile: dockerfile
+    container_name: backend
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+    
+    
+networks:
+  app-network:
+    driver: bridge
+
