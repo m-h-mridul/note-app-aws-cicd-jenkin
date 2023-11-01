@@ -1,7 +1,12 @@
 
 pipeline {
     agent any 
-    
+    environment {
+        // Define environment variables if needed
+        IMAGE_NAME = "my-note-app"  // Set your desired image name
+        DOCKERFILE_PATH = "./my-react-app/dockerfile"  // Path to your Dockerfile
+    }
+
     stages{
         stage("Clone Code"){
             steps {
@@ -11,11 +16,25 @@ pipeline {
         }
         stage("Build"){
             steps {
-                echo "Building the image"
-                sh "docker build -t my-note-app ./my-react-app/"
-                sh "docker build -t my-note-app-backend ./backendserver/"
+            echo "Building the image"
+            sh "ls -l"
+            sh "cd my-react-app && ls -l"
+            sh "docker buildx -t my-note-app ."
+            sh "docker buildx -t my-note-app-backend ./backendserver/"         
             }
         }
+        // stage('Build Image') {
+        //     steps {
+        //         script {
+        //             // Build the Docker image
+        //             docker.build("${IMAGE_NAME}:latest", "-f ${DOCKERFILE_PATH} .")
+
+        //             // Tag the image if needed
+        //             // docker.image("${IMAGE_NAME}:latest").tag("${env.BUILD_NUMBER}")
+        //             docker.image("${IMAGE_NAME}:latest").tag("3")
+        //         }
+        //     }
+        // }
         stage("Push to Docker Hub"){
             steps {
                 echo "Pushing the image to docker hub"
