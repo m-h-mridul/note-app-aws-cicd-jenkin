@@ -10,7 +10,8 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    loader: () => fetch("http://localhost:3000/note"),
+    
+    loader: () => fetch(`${process.env.address}`),
   },
   {
     path: "add",

@@ -55,10 +55,9 @@ sudo reboot
 
 echo " the jenkins password for login..."
 
-sudo usermod -aG docker $USER
-
-sudo usermod -aG docker ubuntu jenkins
+sudo usermod -a -G docker jenkins && sudo systemctl restart jenkins
 
 sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+
 
 
