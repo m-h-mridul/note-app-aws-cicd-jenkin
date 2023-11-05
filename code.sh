@@ -14,10 +14,11 @@ sleep 15s
 
 echo "docker install ----"
 
-
 sudo apt update && sudo apt install -y docker-buildx-plugin && sudo apt install docker-compose -y
 sudo apt install docker.io -y
 sudo systemctl start docker
+
+sudo apt install docker-compose -y
 
 echo "user cheak ----"
 
@@ -51,13 +52,8 @@ echo "Ec2 port show ----"
 
 netstat -tuln && ss -tuln
 
-sudo reboot
-
 echo " the jenkins password for login..."
 
 sudo usermod -a -G docker jenkins && sudo systemctl restart jenkins
 
 sudo cat /var/lib/jenkins/secrets/initialAdminPassword
-
-
-
